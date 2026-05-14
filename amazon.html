@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon Clone</title>
+
+<style>
+body { font-family: Arial; margin: 0; background: #f3f3f3; }
+
+/* Header */
+header {
+  background: #c9cacb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+/* Logo + Search */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header img {
+  height: 40px;
+}
+
+/* Search Bar */
+.search-box {
+  display: flex;
+}
+
+.search-box input {
+  padding: 15px;
+  width: 850px;
+  border: none;
+  outline: none;
+}
+
+.search-box button {
+  background: orange;
+  border: none;
+  padding: 15px 50px;
+  cursor: pointer;
+  color: white;
+}
+#cart-box {
+  cursor: pointer;
+  font-size: 22px;
+  padding: 10px 20px;
+  background: orange;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+#cart-box:hover {
+  background: darkorange;
+}
+
+
+/* Navbar */
+nav { background: #232f3e; }
+
+nav ul {
+  display: flex;
+  justify-content: center; /* CENTER */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  color: white;
+  padding: 50px 50px;
+  text-decoration: none;
+  font-size: 36px; /* BIGGER FONT */
+}
+
+nav a:hover {
+  background: #37475a;
+}
+
+/* Sections */
+section {
+  width: 90%;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+}
+
+.card {
+  text-align: center;
+  padding: 15px;
+  background: #fafafa;
+}
+
+.card img { width: 120px; height: 120px; }
+
+button {
+  background: orange;
+  border: none;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Cart */
+#cart-panel {
+  position: fixed;
+  right: -640px;
+  top: 0;
+  width: 320px;
+  height: 100%;
+  background: rgb(255, 251, 251);
+  padding: 20px;
+  transition: 0.3s;
+  overflow-y: auto;
+}
+
+#cart-panel.active { right: 0; }
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.cart-left {
+  display: flex;
+  gap: 10px;
+}
+
+.cart-left img {
+  width: 40px;
+  height: 40px;
+}
+
+.qty-btn {
+  padding: 2px 6px;
+  margin: 0 3px;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-left">
+    <!-- AMAZON LOGO -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg">
+
+    <!-- SEARCH BAR -->
+    <div class="search-box">
+      <input type="text" placeholder="Search products...">
+      <button>Search</button>
+    </div>
+  </div>
+
+  <div id="cart-box">🛒 Cart: <span id="cart-count">0</span></div>
+</header>
+
+<nav>
+<ul>
+<li><a href="#electronics">Electronics</a></li>
+<li><a href="#laptops">Laptops</a></li>
+<li><a href="#books">Books</a></li>
+<li><a href="#toys">Toys</a></li>
+</ul>
+</nav>
+
+<!-- CART PANEL -->
+<div id="cart-panel">
+<h2>Your Cart</h2>
+<div id="cart-items"></div>
+<div class="total">Total: ₹<span id="total-price">0</span></div>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<!-- Electronics -->
+<section id="electronics">
+<h2>Electronics</h2>
+<div class="grid">
+
+<div class="card">
+<img src="https://th.bing.com/th/id/OIP.qoGKxse28XKHyq3C8cMz7gHaHa?w=172&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+<h3>iPhone 17 Pro Max</h3>
+<p>120000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSWmeIMgwjrl6wcpRcpGKm1pQZMFhjxg7NYw&s">
+<h3>Samsung S24 Ultra</h3>
+<p>110000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDYWIpQlrcAGk52S-RQ_KrzKxTkOBlbo6-yA&s">
+<h3>Vivo X200 Ultra</h3>
+<p>80000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA1vyzwCJ8CesQ2BvymTGMZQ4h8xDtFQ1rHQ&s">
+<h3>Xiaomi 15 Ultra</h3>
+<p>75000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+</div>
+</section>
+
+<!-- Laptops -->
+<section id="laptops">
+<h2>Laptops</h2>
+<div class="grid">
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzV1OkdsdCBitwxe4rZ6wT9CwfYs19sAY9eA&s">
+<h3>HP Pavilion x360</h3>
+<p>65000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx7-4NTG7612Vx2Sq4nfnSgB828a_cS9carQ&s">
+<h3>MacBook Air M4</h3>
+<p>120000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSesDJfd8tIB6rkdt2KLTvFRkaDqPZvWDYI3Q&s">
+<h3>Dell XPS 15</h3>
+<p>140000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://th.bing.com/th/id/OIP.DwkEYJ-r4s2-cXttdspwZwHaFj?w=281&h=211&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+<h3>ASUS TUF A15</h3>
+<p>90000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+</div>
+</section>
+
+<!-- Books -->
+<section id="books">
+<h2>Books</h2>
+<div class="grid">
+
+<div class="card">
+<img src="https://m.media-amazon.com/images/I/81af+MCATTL._AC_UL1500_.jpg">
+<h3>Fiction Novel</h3>
+<p>500</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://m.media-amazon.com/images/I/81h2gWPTYJL._AC_UL1500_.jpg">
+<h3>Motivational Book</h3>
+<p>400</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://m.media-amazon.com/images/I/81drfTT9ZfL._AC_UL1500_.jpg">
+<h3>Biography</h3>
+<p>450</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFdi-CD-hOoL_Acq_1qvTvEoc6XlOdnASw&s">
+<h3>Science Fiction</h3>
+<p>600</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+</div>
+</section>
+
+<!-- Toys -->
+<section id="toys">
+<h2>Toys</h2>
+<div class="grid">
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo5lcxqnp7Rl1vckrccbwBMRg6Ly2xRZzb_w&s">
+<h3>Robot Toy</h3>
+<p>1500</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTurI_qgVRvPACvIqlWchyuDXpqnvobEGuhdw&s">
+<h3>Puzzle Set</h3>
+<p>800</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeclD-E5M8O_PugXXMI99TCUyAuH14QiS8HQ&s">
+<h3>Teddy Bear</h3>
+<p>1200</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfJY9sKZRcdmM0BJhci_DU2_AAed0RuZhpHQ&s">
+<h3>LEGO Set</h3>
+<p>2000</p>
+<button onclick="addToCart(this)">Buy Now</button>
+</div>
+
+</div>
+</section>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function addToCart(btn) {
+  const card = btn.parentElement;
+  const name = card.querySelector("h3").innerText;
+  const img = card.querySelector("img").src;
+  const price = parseInt(card.querySelector("p").innerText);
+
+  let item = cart.find(p => p.name === name);
+
+  if (item) item.qty++;
+  else cart.push({ name, img, price, qty: 1 });
+
+  updateCart();
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cart-items");
+  const cartCount = document.getElementById("cart-count");
+  const totalPrice = document.getElementById("total-price");
+
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <div class="cart-left">
+          <img src="${item.img}">
+          <div>
+            ${item.name}<br>
+            ₹${item.price}
+            <div>
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+              ${item.qty}
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            </div>
+          </div>
+        </div>
+        <button onclick="removeItem(${index})">X</button>
+      </div>
+    `;
+  });
+
+  cartCount.innerText = cart.length;
+  totalPrice.innerText = total;
+
+  saveCart();
+}
+
+function changeQty(i, change) {
+  cart[i].qty += change;
+  if (cart[i].qty <= 0) cart.splice(i,1);
+  updateCart();
+}
+
+function removeItem(i) {
+  cart.splice(i,1);
+  updateCart();
+}
+
+function clearCart() {
+  cart = [];
+  updateCart();
+}
+
+document.getElementById("cart-box").onclick = () => {
+  document.getElementById("cart-panel").classList.toggle("active");
+};
+
+updateCart();
+</script>
+
+</body>
+</html>
